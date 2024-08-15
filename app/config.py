@@ -10,9 +10,15 @@ class BaseSettings(_BaseSettings):
     )
 
 
+class CommonSettings(BaseSettings, env_prefix="COMMON_"):
+    title: str
+    debug: bool = False
+
+
 class ServerSettings(BaseSettings, env_prefix="SERVER_"):
     host: str
     port: int
+    origins: list[str] = ["*"]
 
 
 class PostgresSettings(BaseSettings, env_prefix="POSTGRES_"):
@@ -22,7 +28,7 @@ class PostgresSettings(BaseSettings, env_prefix="POSTGRES_"):
     username: str
     password: SecretStr
 
-    database: str
+    db: str
 
     def build_dsn(self) -> URL:
         return URL.create(
@@ -36,12 +42,14 @@ class PostgresSettings(BaseSettings, env_prefix="POSTGRES_"):
 
 
 class Settings(BaseModel):
+    common: CommonSettings
     server: ServerSettings
     postgres: PostgresSettings
 
 
 def create_settings() -> Settings:
     return Settings(
+        common=CommonSettings(),
         server=ServerSettings(),
         postgres=PostgresSettings(),
     )
