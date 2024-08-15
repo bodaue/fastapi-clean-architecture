@@ -6,7 +6,7 @@ from sqlalchemy import URL, pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from config import PostgresConfig
+from settings import PostgresSettings
 from db.models import Base
 
 # this is the Alembic Config object, which provides
@@ -24,8 +24,8 @@ target_metadata = Base.metadata
 
 
 def _get_postgres_dsn() -> URL:
-    _config: PostgresConfig = PostgresConfig()
-    return _config.build_dsn()
+    _postgres: PostgresSettings = PostgresSettings()
+    return _postgres.build_dsn()
 
 
 # other values from the config, defined by the needs of env.py,

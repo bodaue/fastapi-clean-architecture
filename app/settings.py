@@ -10,7 +10,12 @@ class BaseSettings(_BaseSettings):
     )
 
 
-class PostgresConfig(BaseSettings, env_prefix="POSTGRES_"):
+class ServerSettings(BaseSettings, env_prefix="SERVER_"):
+    host: str
+    port: int
+
+
+class PostgresSettings(BaseSettings, env_prefix="POSTGRES_"):
     host: str
     port: int
 
@@ -30,9 +35,16 @@ class PostgresConfig(BaseSettings, env_prefix="POSTGRES_"):
         )
 
 
-class Config(BaseModel):
-    postgres: PostgresConfig
+class Settings(BaseModel):
+    server: ServerSettings
+    postgres: PostgresSettings
 
 
-def create_config() -> Config:
-    return Config(postgres=PostgresConfig())
+def create_settings() -> Settings:
+    return Settings(
+        server=ServerSettings(),
+        postgres=PostgresSettings(),
+    )
+
+
+settings = create_settings()
