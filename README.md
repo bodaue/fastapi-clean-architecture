@@ -11,7 +11,6 @@ containerized using Docker, making it easy to deploy and manage.
     - Alembic
 - PostgreSQL
 - Docker
-- Docker Compose
 
 ## Project Structure
 
@@ -40,6 +39,7 @@ containerized using Docker, making it easy to deploy and manage.
 
 ```bash
   git clone https://github.com/yourusername/fastapi-template.git
+  
   cd fastapi-template
 ```
 

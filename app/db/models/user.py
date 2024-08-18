@@ -1,9 +1,9 @@
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column
 
-from db.mixins.int_id_pk import IntIdPkMixin
-from db.mixins.timestamp import TimestampMixin
-from db.models import Base
+from app.db.models.mixins.int_id_pk import IntIdPkMixin
+from app.db.models.mixins.timestamp import TimestampMixin
+from app.db.models import Base
 
 
 class User(IntIdPkMixin, TimestampMixin, Base):

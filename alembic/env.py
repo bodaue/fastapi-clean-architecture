@@ -6,8 +6,8 @@ from sqlalchemy import URL, pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from config import PostgresSettings
-from db.models import Base
+from app.config import PostgresSettings
+from app.db.models import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -26,12 +26,6 @@ target_metadata = Base.metadata
 def _get_postgres_dsn() -> URL:
     _postgres: PostgresSettings = PostgresSettings()
     return _postgres.build_dsn()
-
-
-# other values from the config, defined by the needs of env.py,
-# can be acquired:
-# my_important_option = config.get_main_option("my_important_option")
-# ... etc.
 
 
 def run_migrations_offline() -> None:

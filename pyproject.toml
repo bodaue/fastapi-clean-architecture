@@ -7,11 +7,12 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-fastapi = "^0.111.1"
 pydantic-settings = "^2.3.4"
 sqlalchemy = { extras = ["asyncio"], version = "^2.0.31" }
 asyncpg = "^0.29.0"
 alembic = "^1.13.2"
+fastapi = {extras = ["uvicorn"], version = "^0.112.1"}
+uvicorn = "^0.30.6"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.10.1"
@@ -24,6 +25,21 @@ follow_imports = "normal"
 show_error_context = false
 pretty = true
 ignore_missing_imports = false
+
+[tool.ruff]
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E", "F", "B", "UP", "SIM", "N", "YTT", "ANN", "ASYNC", "S", "A", "COM", "C4",
+    "DTZ", "T10", "EM", "FA", "ISC", "ICN", "G", "INP", "PIE", "T20", "PYI", "PT", "Q",
+    "RSE", "RET", "SLF", "SLOT", "TID", "TCH", "INT", "ARG", "PTH", "TD", "FIX", "ERA",
+    "PLC", "PLE", "PLW", "TRY", "FLY", "NPY", "AIR", "PERF", "FURB", "LOG", "RUF"
+]
+ignore = [
+    "E501", "ANN101", "ANN102", "ANN201", "ANN202", "ANN401", "RET502", "RET503", "RET504", "PLC0414",
+    "SIM108", "S113", "RUF001", "G004", "DTZ005",
+]
 
 [build-system]
 requires = ["poetry-core"]
