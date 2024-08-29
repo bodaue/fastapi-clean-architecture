@@ -2,8 +2,9 @@
 name = "fastapi-template"
 version = "0.1.0"
 description = ""
-authors = ["Timur Kerimov <tim-online@mail.ru>"]
+authors = ["bodaue"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -11,7 +12,7 @@ pydantic-settings = "^2.3.4"
 sqlalchemy = { extras = ["asyncio"], version = "^2.0.31" }
 asyncpg = "^0.29.0"
 alembic = "^1.13.2"
-fastapi = {extras = ["uvicorn"], version = "^0.112.1"}
+fastapi = { extras = ["uvicorn"], version = "^0.112.1" }
 uvicorn = "^0.30.6"
 
 [tool.poetry.group.dev.dependencies]
@@ -37,8 +38,7 @@ select = [
     "PLC", "PLE", "PLW", "TRY", "FLY", "NPY", "AIR", "PERF", "FURB", "LOG", "RUF"
 ]
 ignore = [
-    "E501", "ANN101", "ANN102", "ANN201", "ANN202", "ANN401", "RET502", "RET503", "RET504", "PLC0414",
-    "SIM108", "S113", "RUF001", "G004", "DTZ005",
+    "ANN101", "ANN102", "ANN401", "RET502", "RET503", "S113", "RUF001"
 ]
 
 [build-system]
