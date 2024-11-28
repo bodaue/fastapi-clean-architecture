@@ -10,6 +10,7 @@ package-mode = false
 python = "^3.13"
 fastapi = "^0.115.5"
 pydantic-settings = "^2.6.1"
+dishka = "^1.4.1"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.13.0"
