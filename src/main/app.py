@@ -1,20 +1,19 @@
+from collections.abc import Iterable
+
+from dishka import make_async_container, Provider, AsyncContainer
 from fastapi import FastAPI
 
-
-def setup_routers(app: FastAPI) -> None:
-    pass
-
-
-def setup_di_container(app: FastAPI) -> None:
-    pass
+from main.settings import create_settings, Settings
 
 
 def create_application() -> FastAPI:
-    app = FastAPI(
-        title="FastAPI Template",
-        debug=True,
-        root_path="/api/v1",
-    )
-    setup_di_container(app)
-    setup_routers(app)
-    return app
+    return FastAPI(title="FastAPI Template", debug=True, root_path="/api/v1")
+
+
+def create_di_container(providers: Iterable[Provider]) -> AsyncContainer:
+    settings = create_settings()
+    return make_async_container(*providers, context={Settings: settings})
+
+
+def configure_application(app: FastAPI) -> None:
+    pass

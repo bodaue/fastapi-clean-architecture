@@ -19,7 +19,7 @@ containerized using Docker, making it easy to deploy and manage.
 ├── alembic/                 # Alembic configurations and migrations
 ├── app/
 │   ├── api/                 # API routes
-│   ├── db/                  # Database session, models and repositories
+│   ├── db/                  # Database session, entities and repositories
 │   ├── services/            # Services layer
 │   ├── config.py            # Settings
 │   ├── main.py              # Main entry point of the application
