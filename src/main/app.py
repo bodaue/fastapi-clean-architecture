@@ -5,14 +5,14 @@ from fastapi import FastAPI
 
 from main.config import create_config, Config
 from main.ioc.main import create_container
-from presentation.controllers import test
+from presentation.controllers import auth
 
 if TYPE_CHECKING:
     from dishka import AsyncContainer
 
 
 def setup_routers(app: FastAPI) -> None:
-    app.include_router(test.router)
+    app.include_router(auth.router)
 
 
 def create_application() -> FastAPI:

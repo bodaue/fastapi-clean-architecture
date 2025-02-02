@@ -14,6 +14,9 @@ dishka = "^1.4.1"
 uvicorn = "^0.34.0"
 sqlalchemy = { extras = ["asyncio"], version = "^2.0.37" }
 asyncpg = "^0.30.0"
+bcrypt = "^4.2.1"
+python-jose = { extras = ["cryptography"], version = "^3.3.0" }
+alembic = "^1.14.1"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.13.0"
@@ -43,6 +46,7 @@ ignore = [
     "ANN401",
     "I001", "INP001",
     "FBT001", "FBT002",
+    "TRY003", "EM101"
 ]
 
 [build-system]

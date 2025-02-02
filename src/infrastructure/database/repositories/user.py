@@ -19,8 +19,24 @@ class SQLUserRepository(UserRepository):
             is_active=model.is_active,
         )
 
+    async def create(self, user: User) -> User:
+        model = UserModel(
+            email=user.email,
+            hashed_password=user.hashed_password,
+            is_active=user.is_active,
+        )
+        self.session.add(model)
+        await self.session.flush()
+        await self.session.refresh(model)
+        return User(
+            id=UserId(model.id),
+            email=model.email,
+            hashed_password=model.hashed_password,
+            is_active=model.is_active,
+        )
+
     async def get_by_id(self, user_id: UserId) -> User | None:
-        result = await self.session.scalar(select(User).where(User.id == user_id))
+        result = await self.session.scalar(select(UserModel).where(User.id == user_id))
         return await self._model_to_entity(result) if result else None
 
     async def get_by_email(self, email: str) -> User | None:

@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic import SecretStr, BaseModel
 from pydantic_settings import BaseSettings as _BaseSettings
 from pydantic_settings import SettingsConfigDict
@@ -15,6 +17,12 @@ class BaseSettings(_BaseSettings):
 class ApplicationConfig(BaseSettings, env_prefix="APPLICATION_"):
     title: str
     debug: bool = False
+
+
+class JWTConfig(BaseSettings, env_prefix="JWT_"):
+    secret_key: SecretStr
+    algorithm: Literal["HS256", "HS384", "HS512", "RS256", "RS384", "RS512"]
+    access_token_expires_minutes: int
 
 
 class PostgresConfig(BaseSettings, env_prefix="POSTGRES_"):
@@ -45,6 +53,7 @@ class RedisConfig(BaseSettings, env_prefix="REDIS_"):
 
 class Config(BaseModel):
     app: ApplicationConfig
+    jwt: JWTConfig
     postgres: PostgresConfig
     redis: RedisConfig
 
@@ -52,6 +61,7 @@ class Config(BaseModel):
 def create_config() -> Config:
     return Config(
         app=ApplicationConfig(),
+        jwt=JWTConfig(),
         postgres=PostgresConfig(),
         redis=RedisConfig(),
     )
