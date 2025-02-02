@@ -3,6 +3,8 @@ from collections.abc import AsyncIterable
 from dishka import Provider, provide, Scope, from_context
 from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
 
+from application.interfaces.committer import Committer
+from infrastructure.database.committer import SQLAlchemyCommitter
 from infrastructure.database.database import get_new_session_maker
 from main.config import Config
 
@@ -20,3 +22,5 @@ class DatabaseProvider(Provider):
     ) -> AsyncIterable[AsyncSession]:
         async with session_maker() as session:
             yield session
+
+    committer = provide(SQLAlchemyCommitter, provides=Committer, scope=Scope.REQUEST)

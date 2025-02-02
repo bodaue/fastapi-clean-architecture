@@ -1,4 +1,4 @@
-from application.interfaces.commiter import Committer
+from application.interfaces.committer import Committer
 from application.interfaces.password_hasher import PasswordHasher
 from application.interfaces.token_processor import TokenProcessor
 from application.interfaces.user_repository import UserRepository
@@ -9,12 +9,12 @@ class RegisterUserInteractor:
     def __init__(
         self,
         user_repository: UserRepository,
-        commiter: Committer,
+        committer: Committer,
         password_hasher: PasswordHasher,
         token_processor: TokenProcessor,
     ) -> None:
         self.user_repository = user_repository
-        self.committer = commiter
+        self.committer = committer
         self.password_hasher = password_hasher
         self.token_processor = token_processor
 

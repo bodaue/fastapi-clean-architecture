@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from application.interfaces.commiter import Committer
+from application.interfaces.committer import Committer
 
 
 class SQLAlchemyCommitter(Committer):
