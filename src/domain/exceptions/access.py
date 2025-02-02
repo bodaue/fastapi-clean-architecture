@@ -7,3 +7,7 @@ class AuthenticationError(DomainError):
 
 class AccessDeniedError(DomainError):
     pass
+
+
+class UserAlreadyExistsError(DomainError):
+    pass
