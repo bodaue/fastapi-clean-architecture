@@ -1,14 +1,14 @@
 from application.interfaces.password_hasher import PasswordHasher
+from application.interfaces.token_processor import TokenProcessor
 from application.interfaces.user_repository import UserRepository
 from domain.exceptions.access import AuthenticationError
-from infrastructure.services.token import JwtTokenProcessor
 
 
 class LoginUserInteractor:
     def __init__(
         self,
         user_repository: UserRepository,
-        token_processor: JwtTokenProcessor,
+        token_processor: TokenProcessor,
         password_hasher: PasswordHasher,
     ) -> None:
         self.user_repository = user_repository

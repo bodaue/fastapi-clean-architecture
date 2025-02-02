@@ -4,6 +4,7 @@ from typing import Literal
 from jose import jwt, JWTError
 
 from application.interfaces.id_provider import IdProvider
+from application.interfaces.token_processor import TokenProcessor
 from domain.entities.user import UserId
 from domain.exceptions.access import AuthenticationError
 
@@ -17,7 +18,7 @@ type Algorithm = Literal[
 ]
 
 
-class JwtTokenProcessor:
+class JwtTokenProcessor(TokenProcessor):
     def __init__(
         self,
         secret: str,

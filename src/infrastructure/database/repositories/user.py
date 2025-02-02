@@ -36,7 +36,9 @@ class SQLUserRepository(UserRepository):
         )
 
     async def get_by_id(self, user_id: UserId) -> User | None:
-        result = await self.session.scalar(select(UserModel).where(User.id == user_id))
+        result = await self.session.scalar(
+            select(UserModel).where(UserModel.id == user_id)
+        )
         return await self._model_to_entity(result) if result else None
 
     async def get_by_email(self, email: str) -> User | None:

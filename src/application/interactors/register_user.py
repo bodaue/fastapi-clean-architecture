@@ -1,9 +1,9 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from application.interfaces.password_hasher import PasswordHasher
+from application.interfaces.token_processor import TokenProcessor
 from application.interfaces.user_repository import UserRepository
 from domain.entities.user import User
-from infrastructure.services.token import JwtTokenProcessor
 
 
 class RegisterUserInteractor:
@@ -11,7 +11,7 @@ class RegisterUserInteractor:
         self,
         user_repository: UserRepository,
         password_hasher: PasswordHasher,
-        token_processor: JwtTokenProcessor,
+        token_processor: TokenProcessor,
         session: AsyncSession,
     ) -> None:
         self.user_repository = user_repository
