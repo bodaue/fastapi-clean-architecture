@@ -1,5 +1,4 @@
-from sqlalchemy.ext.asyncio import AsyncSession
-
+from application.interfaces.commiter import Committer
 from application.interfaces.password_hasher import PasswordHasher
 from application.interfaces.token_processor import TokenProcessor
 from application.interfaces.user_repository import UserRepository
@@ -10,14 +9,14 @@ class RegisterUserInteractor:
     def __init__(
         self,
         user_repository: UserRepository,
+        commiter: Committer,
         password_hasher: PasswordHasher,
         token_processor: TokenProcessor,
-        session: AsyncSession,
     ) -> None:
         self.user_repository = user_repository
+        self.committer = commiter
         self.password_hasher = password_hasher
         self.token_processor = token_processor
-        self.session = session
 
     async def __call__(self, email: str, password: str) -> str:
         existing_user = await self.user_repository.get_by_email(email)
@@ -30,5 +29,5 @@ class RegisterUserInteractor:
             hashed_password=hashed_password,
         )
         created_user = await self.user_repository.create(new_user)
-        await self.session.commit()
+        await self.committer.commit()
         return self.token_processor.create_access_token(created_user.id)
