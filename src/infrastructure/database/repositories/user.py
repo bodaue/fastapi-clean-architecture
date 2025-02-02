@@ -11,7 +11,7 @@ class SQLUserRepository(UserRepository):
         self.session = session
 
     @staticmethod
-    async def _model_to_entity(model: UserModel) -> User:
+    def _model_to_entity(model: UserModel) -> User:
         return User(
             id=UserId(model.id),
             email=model.email,
@@ -39,10 +39,10 @@ class SQLUserRepository(UserRepository):
         result = await self.session.scalar(
             select(UserModel).where(UserModel.id == user_id)
         )
-        return await self._model_to_entity(result) if result else None
+        return self._model_to_entity(result) if result else None
 
     async def get_by_email(self, email: str) -> User | None:
         result = await self.session.scalar(
             select(UserModel).where(UserModel.email == email)
         )
-        return await self._model_to_entity(result) if result else None
+        return self._model_to_entity(result) if result else None
