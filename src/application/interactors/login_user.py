@@ -1,4 +1,4 @@
-from application.exceptions import UserDoesNotExistsError
+from application.exceptions import InvalidCredentialsError
 from application.interfaces.password_hasher import PasswordHasher
 from application.interfaces.token_processor import TokenProcessor
 from application.interfaces.user_repository import UserRepository
@@ -18,10 +18,10 @@ class LoginUserInteractor:
     async def __call__(self, email: str, password: str) -> str:
         user = await self.user_repository.get_by_email(email)
         if not user:
-            raise UserDoesNotExistsError
+            raise InvalidCredentialsError
         user.ensure_is_active()
 
         if not self.password_hasher.verify(password, user.hashed_password):
-            raise UserDoesNotExistsError
+            raise InvalidCredentialsError
 
         return self.token_processor.create_access_token(user.id)
