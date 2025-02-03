@@ -1,2 +1,0 @@
-class DomainError(Exception):
-    pass

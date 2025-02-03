@@ -1,9 +1,9 @@
+from application.exceptions import UserAlreadyExistsError
 from application.interfaces.committer import Committer
 from application.interfaces.password_hasher import PasswordHasher
 from application.interfaces.token_processor import TokenProcessor
 from application.interfaces.user_repository import UserRepository
 from domain.entities.user import User
-from domain.exceptions.access import UserAlreadyExistsError
 
 
 class RegisterUserInteractor:
@@ -22,7 +22,7 @@ class RegisterUserInteractor:
     async def __call__(self, email: str, password: str) -> str:
         existing_user = await self.user_repository.get_by_email(email)
         if existing_user:
-            raise UserAlreadyExistsError
+            raise UserAlreadyExistsError(email=email)
         hashed_password = self.password_hasher.hash(password)
         new_user = User(
             id=None,
