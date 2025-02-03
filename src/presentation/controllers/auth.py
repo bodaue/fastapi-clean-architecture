@@ -33,7 +33,12 @@ class AuthResponse(BaseModel):
     token: str
 
 
-@router.post("/register")
+@router.post(
+    "/register",
+    responses={
+        409: {"description": "Пользователь с данным email уже существует."},
+    },
+)
 @inject
 async def register(
     request: RegisterRequest,
@@ -43,7 +48,12 @@ async def register(
     return AuthResponse(token=token)
 
 
-@router.post("/login")
+@router.post(
+    "/login",
+    responses={
+        401: {"description": "Неверные учётные данные или неактивный пользователь."}
+    },
+)
 @inject
 async def login(
     request: LoginRequest, login_user: FromDishka[LoginUserInteractor]
