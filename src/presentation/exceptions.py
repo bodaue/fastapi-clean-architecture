@@ -13,7 +13,7 @@ def register_exception_handlers(app: FastAPI) -> None:
     async def user_not_active_handler(_: Request, __: Exception) -> JSONResponse:
         return JSONResponse(
             status_code=status.HTTP_403_FORBIDDEN,
-            content={"detail": "User does not exists"},
+            content={"detail": "User is not active"},
         )
 
     @app.exception_handler(app_exc.UserAlreadyExistsError)
