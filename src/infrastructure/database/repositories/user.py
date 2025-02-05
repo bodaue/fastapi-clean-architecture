@@ -27,7 +27,6 @@ class SQLUserRepository(UserRepository):
         )
         self.session.add(model)
         await self.session.flush()
-        await self.session.refresh(model)
         return User(
             id=UserId(model.id),
             email=model.email,

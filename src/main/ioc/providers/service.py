@@ -4,8 +4,8 @@ from dishka import Provider, provide, Scope, from_context
 
 from application.interfaces.password_hasher import PasswordHasher
 from application.interfaces.token_processor import TokenProcessor
-from infrastructure.services.password_hasher import BcryptPasswordHasher
-from infrastructure.services.token import JwtTokenProcessor
+from infrastructure.adapters.password_hasher import BcryptPasswordHasher
+from infrastructure.adapters.token import JwtTokenProcessor
 from main.config import Config
 
 

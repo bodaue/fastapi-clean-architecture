@@ -9,3 +9,7 @@ class UserAlreadyExistsError(ApplicationError):
 
 class InvalidCredentialsError(ApplicationError):
     pass
+
+
+class InvalidPasswordError(ApplicationError):
+    pass
