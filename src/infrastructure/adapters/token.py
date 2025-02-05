@@ -1,5 +1,5 @@
 from datetime import timedelta, datetime, UTC
-from typing import Literal
+from typing import Literal, cast
 
 from jose import jwt, JWTError
 
@@ -36,10 +36,13 @@ class JwtTokenProcessor(TokenProcessor):
         to_encode = {"sub": str(user_id)}
         expire = datetime.now(UTC) + self.expires
         to_encode["exp"] = expire
-        return jwt.encode(
-            to_encode,
-            self.secret,
-            algorithm=self.algorithm,
+        return cast(
+            str,
+            jwt.encode(
+                to_encode,
+                self.secret,
+                algorithm=self.algorithm,
+            ),
         )
 
     def validate_token(self, token: str) -> UserId:

@@ -8,7 +8,7 @@ UserId = NewType("UserId", int)
 
 @dataclass
 class User:
-    id: UserId | None
+    id: UserId
     email: str
     hashed_password: str
     is_active: bool = True

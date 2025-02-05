@@ -43,7 +43,6 @@ class RegisterUserInteractor:
 
         hashed_password = self.password_hasher.hash(data.password)
         new_user = User(
-            id=None,
             email=data.email,
             hashed_password=hashed_password,
         )
