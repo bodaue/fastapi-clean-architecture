@@ -6,7 +6,7 @@ from application.interfaces.password_hasher import PasswordHasher
 from application.interfaces.token_processor import TokenProcessor
 from application.interfaces.user_repository import UserRepository
 from application.validators import validate_password
-from domain.entities.user import User
+from domain.entities.user import User, UserId
 
 
 @dataclass
@@ -43,6 +43,7 @@ class RegisterUserInteractor:
 
         hashed_password = self.password_hasher.hash(data.password)
         new_user = User(
+            id=UserId(0),
             email=data.email,
             hashed_password=hashed_password,
         )
