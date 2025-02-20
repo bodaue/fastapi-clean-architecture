@@ -15,7 +15,6 @@ uvicorn = "^0.34.0"
 sqlalchemy = { extras = ["asyncio"], version = "^2.0.37" }
 asyncpg = "^0.30.0"
 bcrypt = "^4.2.1"
-python-jose = { extras = ["cryptography"], version = "^3.3.0" }
 alembic = "^1.14.1"
 pydantic = { extras = ["email"], version = "^2.10.6" }
 
@@ -47,7 +46,8 @@ ignore = [
     "ANN401",
     "I001", "INP001",
     "FBT001", "FBT002",
-    "TRY003", "EM101"
+    "TRY003", "EM101",
+    "PLR0913",
 ]
 
 [build-system]

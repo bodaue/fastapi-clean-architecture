@@ -1,11 +1,11 @@
 from dishka import FromDishka
 from dishka.integrations.fastapi import inject
 from fastapi import APIRouter
+from starlette import status
 
 from application.interactors.login_user import (
     LoginUserInteractor,
     LoginUserRequest,
-    LoginUserResponse,
 )
 from application.interactors.register_user import (
     RegisterUserInteractor,
@@ -18,6 +18,7 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post(
     "/register",
+    status_code=status.HTTP_201_CREATED,
     responses={
         409: {"description": "User already exists"},
     },
@@ -32,6 +33,7 @@ async def register(
 
 @router.post(
     "/login",
+    status_code=status.HTTP_204_NO_CONTENT,
     responses={
         401: {"description": "Invalid username of password"},
         403: {"description": "User is not active"},
@@ -40,5 +42,5 @@ async def register(
 @inject
 async def login(
     data: LoginUserRequest, login_user: FromDishka[LoginUserInteractor]
-) -> LoginUserResponse:
+) -> None:
     return await login_user(data)

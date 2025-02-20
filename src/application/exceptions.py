@@ -13,3 +13,7 @@ class InvalidCredentialsError(ApplicationError):
 
 class InvalidPasswordError(ApplicationError):
     pass
+
+
+class LogInError(ApplicationError):
+    pass

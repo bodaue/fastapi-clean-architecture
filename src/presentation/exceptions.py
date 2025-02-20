@@ -47,3 +47,10 @@ def register_exception_handlers(app: FastAPI) -> None:
             status_code=status.HTTP_401_UNAUTHORIZED,
             content={"detail": "Invalid username or password."},
         )
+
+    @app.exception_handler(app_exc.LogInError)
+    async def login_exception_handler(_: Request, __: Exception) -> JSONResponse:
+        return JSONResponse(
+            status_code=status.HTTP_409_CONFLICT,
+            content={"detail": "You are already authenticated"},
+        )

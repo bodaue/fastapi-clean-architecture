@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 from typing import NewType
+from uuid import UUID
 
 from domain.exceptions import UserNotActiveError
 
-UserId = NewType("UserId", int)
+UserId = NewType("UserId", UUID)
 
 
 @dataclass
