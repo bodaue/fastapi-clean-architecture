@@ -9,7 +9,7 @@ from infrastructure.database.models.base import Base
 class UserModel(Base):
     __tablename__ = "users"
 
-    id: Mapped[UUID] = mapped_column(primary_key=True, autoincrement=True)
+    id: Mapped[UUID] = mapped_column(primary_key=True)
     email: Mapped[str] = mapped_column(String(256), unique=True)
 
     hashed_password: Mapped[str] = mapped_column(String(1024))
