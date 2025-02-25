@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 from dishka.integrations.fastapi import setup_dishka
 from fastapi import FastAPI
 
+from infrastructure.database.tables.map import map_tables
 from main.config import create_config, Config
 from main.ioc.main import create_container
 from presentation.controllers import auth
@@ -25,5 +26,7 @@ def create_application() -> FastAPI:
 
     setup_routers(app)
     register_exception_handlers(app)
+
+    map_tables()
 
     return app

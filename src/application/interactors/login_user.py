@@ -1,11 +1,12 @@
 from dataclasses import dataclass
 
 from application.exceptions import InvalidCredentialsError, LogInError
+from application.interfaces.committer import Committer
 from application.interfaces.identity_provider import IdentityProvider
 from application.interfaces.password_hasher import PasswordHasher
 from application.interfaces.request_manager import RequestManager
 from application.interfaces.session_id_generator import SessionIdGenerator
-from application.interfaces.session_manager import SessionManager
+from application.interfaces.session_repository import SessionRepository
 from application.interfaces.user_repository import UserRepository
 from domain.entities.session import SessionId, Session
 
@@ -20,14 +21,16 @@ class LoginUserInteractor:
     def __init__(
         self,
         user_repository: UserRepository,
-        session_manager: SessionManager,
+        session_repository: SessionRepository,
+        committer: Committer,
         password_hasher: PasswordHasher,
         session_id_generator: SessionIdGenerator,
         request_manager: RequestManager,
         identity_provider: IdentityProvider,
     ) -> None:
         self._user_repository = user_repository
-        self._session_manager = session_manager
+        self._session_repository = session_repository
+        self._committer = committer
         self._password_hasher = password_hasher
         self._session_id_generator = session_id_generator
         self._request_manager = request_manager
@@ -48,5 +51,7 @@ class LoginUserInteractor:
 
         session_id: SessionId = self._session_id_generator()
         session: Session = Session(id=session_id, user_id=user.id)
-        await self._session_manager.add(session)
+        await self._session_repository.create(session)
+        await self._committer.commit()
+
         self._request_manager.add_session_id_to_request(session.id)

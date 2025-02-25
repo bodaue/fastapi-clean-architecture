@@ -1,8 +1,6 @@
 from sqlalchemy import MetaData
 from sqlalchemy.orm import registry
 
-from infrastructure.database.tables.session import map_sessions_table
-from infrastructure.database.tables.user import map_users_table
 
 metadata: MetaData = MetaData(
     naming_convention={
@@ -15,8 +13,3 @@ metadata: MetaData = MetaData(
 )
 
 mapper_registry: registry = registry(metadata=metadata)
-
-
-def map_tables() -> None:
-    map_users_table()
-    map_sessions_table()

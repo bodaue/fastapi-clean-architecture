@@ -10,11 +10,10 @@ from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-
 src_path = str(Path(__file__).parent.parent.parent.parent)
 sys.path.insert(0, src_path)
 
-from infrastructure.database.tables.base import Base
+from infrastructure.database.tables.base import mapper_registry
 from main.config import create_config
 
 # this is the Alembic Config object, which provides
@@ -30,7 +29,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 
 config.set_main_option("sqlalchemy.url", create_config().postgres.build_dsn())
-target_metadata = Base.metadata
+target_metadata = mapper_registry.metadata
 
 
 def run_migrations_offline() -> None:

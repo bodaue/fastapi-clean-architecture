@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import NewType
-from datetime import datetime, UTC
+from datetime import datetime
 
 from domain.entities.user import UserId
 
@@ -14,8 +14,3 @@ class Session:
     created_at: datetime = None
     expires_at: datetime = None
     is_active: bool = True
-
-    def is_expired(self) -> bool:
-        if not self.expires_at:
-            return False
-        return datetime.now(UTC) > self.expires_at
