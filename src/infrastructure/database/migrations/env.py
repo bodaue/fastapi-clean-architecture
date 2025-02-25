@@ -14,8 +14,8 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 src_path = str(Path(__file__).parent.parent.parent.parent)
 sys.path.insert(0, src_path)
 
-from infrastructure.database.models.base import Base  # noqa: E402
-from main.config import create_config  # noqa: E402
+from infrastructure.database.tables.base import Base
+from main.config import create_config
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
