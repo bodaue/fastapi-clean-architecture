@@ -8,10 +8,13 @@ from main.ioc.providers.service import ServiceProvider
 
 
 def create_container(config: Config) -> AsyncContainer:
+    from main.ioc.providers.adapter import AdapterProvider
+
     return make_async_container(
+        ServiceProvider(),
         DatabaseProvider(),
         RepositoryProvider(),
-        ServiceProvider(),
+        AdapterProvider(),
         InteractorProvider(),
         context={Config: config},
     )

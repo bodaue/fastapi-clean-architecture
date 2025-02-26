@@ -3,9 +3,9 @@ from collections.abc import AsyncIterable
 from dishka import Provider, provide, Scope, from_context
 from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
 
-from application.interfaces.committer import Committer
-from infrastructure.database.committer import SQLAlchemyCommitter
+from application.interfaces.transaction_manager import TransactionManager
 from infrastructure.database.database import get_new_session_maker
+from infrastructure.database.transaction_manager import TransactionManagerImpl
 from main.config import Config
 
 
@@ -23,4 +23,6 @@ class DatabaseProvider(Provider):
         async with session_maker() as session:
             yield session
 
-    committer = provide(SQLAlchemyCommitter, provides=Committer, scope=Scope.REQUEST)
+    transaction_manager = provide(
+        TransactionManagerImpl, provides=TransactionManager, scope=Scope.REQUEST
+    )

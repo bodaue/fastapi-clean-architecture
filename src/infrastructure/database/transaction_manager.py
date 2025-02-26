@@ -1,9 +1,9 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from application.interfaces.committer import Committer
+from application.interfaces.transaction_manager import TransactionManager
 
 
-class SQLAlchemyCommitter(Committer):
+class TransactionManagerImpl(TransactionManager):
     def __init__(self, session: AsyncSession) -> None:
         self.session = session
 

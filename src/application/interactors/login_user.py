@@ -1,11 +1,11 @@
 from dataclasses import dataclass
 
 from application.exceptions import InvalidCredentialsError, LogInError
-from application.interfaces.committer import Committer
+from application.interfaces.session_generator import SessionIdGenerator
+from application.interfaces.transaction_manager import TransactionManager
 from application.interfaces.identity_provider import IdentityProvider
 from application.interfaces.password_hasher import PasswordHasher
 from application.interfaces.request_manager import RequestManager
-from application.interfaces.session_id_generator import SessionIdGenerator
 from application.interfaces.session_repository import SessionRepository
 from application.interfaces.user_repository import UserRepository
 from domain.entities.session import SessionId, Session
@@ -22,7 +22,7 @@ class LoginUserInteractor:
         self,
         user_repository: UserRepository,
         session_repository: SessionRepository,
-        committer: Committer,
+        transaction_manager: TransactionManager,
         password_hasher: PasswordHasher,
         session_id_generator: SessionIdGenerator,
         request_manager: RequestManager,
@@ -30,7 +30,7 @@ class LoginUserInteractor:
     ) -> None:
         self._user_repository = user_repository
         self._session_repository = session_repository
-        self._committer = committer
+        self._transaction_manager = transaction_manager
         self._password_hasher = password_hasher
         self._session_id_generator = session_id_generator
         self._request_manager = request_manager
@@ -52,6 +52,6 @@ class LoginUserInteractor:
         session_id: SessionId = self._session_id_generator()
         session: Session = Session(id=session_id, user_id=user.id)
         await self._session_repository.create(session)
-        await self._committer.commit()
+        await self._transaction_manager.commit()
 
         self._request_manager.add_session_id_to_request(session.id)
