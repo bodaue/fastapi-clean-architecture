@@ -1,6 +1,7 @@
 # FastAPI Clean Architecture Template
 
-A modern template for building scalable and maintainable web applications using FastAPI following Clean Architecture principles.
+A modern template for building scalable and maintainable web applications using FastAPI following Clean Architecture
+principles.
 
 [![Python](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115.5-009688.svg)](https://fastapi.tiangolo.com)
@@ -8,7 +9,7 @@ A modern template for building scalable and maintainable web applications using 
 
 ## 🎯 Features
 
-- **Clean Architecture** design following Robert C. Martin's principles
+- **Clean Architecture** design
 - **SOLID** principles implementation with focus on Dependency Inversion
 - **FastAPI** framework for high-performance API development
 - **Session-based authentication** with secure password handling
@@ -51,23 +52,27 @@ src/
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/fastapi-clean-architecture.git
 cd fastapi-clean-architecture
 ```
 
 2. Install dependencies:
+
 ```bash
 poetry install
 ```
 
 3. Set up environment variables:
+
 ```bash
 cp .env.example .env
 # Edit .env with your configuration
 ```
 
 4. Run migrations:
+
 ```bash
 poetry run alembic upgrade head
 ```
@@ -75,11 +80,13 @@ poetry run alembic upgrade head
 ### Running the Application
 
 #### Using Poetry:
+
 ```bash
-poetry run uvicorn src.main.app:create_application --reload
+poetry run uvicorn src.main.app:create_application --factory
 ```
 
 #### Using Docker:
+
 ```bash
 docker-compose up -d
 ```
@@ -87,42 +94,17 @@ docker-compose up -d
 ## 🔒 Authentication
 
 The template includes session-based authentication with the following features:
+
 - User registration with email and password
 - Password validation and secure hashing with bcrypt
 - User login with session creation
 - Session management (creation, validation, deactivation)
 - Integration with request handling
 
-## 📝 Development
-
-### Code Style
-
-The project uses Ruff for code formatting and linting. Pre-commit hooks are configured to ensure code quality:
-
-```bash
-# Install pre-commit hooks
-pre-commit install
-
-# Run manually on all files
-pre-commit run --all-files
-```
-
-### Database Migrations
-
-```bash
-# Create a new migration
-poetry run alembic revision --autogenerate -m "description"
-
-# Apply migrations
-poetry run alembic upgrade head
-
-# Rollback migration
-poetry run alembic downgrade -1
-```
-
 ## 📖 API Documentation
 
 Once the application is running, you can access:
+
 - Swagger UI: `http://localhost:8000/docs`
 - ReDoc: `http://localhost:8000/redoc`
 
@@ -146,6 +128,7 @@ This template strictly adheres to the Clean Architecture principles:
 5. **Independence of external agencies**: Business rules don't know about the outside world
 
 The dependency flow follows the Dependency Inversion Principle:
+
 - Domain layer has no dependencies
 - Application layer depends only on the Domain layer
 - Infrastructure and Presentation layers depend on the Application layer interfaces
