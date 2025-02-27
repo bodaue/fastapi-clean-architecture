@@ -6,7 +6,7 @@ from application.interfaces.password_hasher import PasswordHasher
 from application.interfaces.session_generator import SessionIdGenerator
 from application.interfaces.uuid_generator import UUIDGenerator
 from infrastructure.adapters.password_hasher import BcryptPasswordHasher
-from infrastructure.adapters.session_generator import SessionIdGeneratorImpl
+from infrastructure.adapters.session_id_generator import SessionIdGeneratorImpl
 
 
 class AdapterProvider(Provider):
