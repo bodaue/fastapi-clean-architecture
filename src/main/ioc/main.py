@@ -1,4 +1,5 @@
 from dishka import AsyncContainer, make_async_container
+from dishka.integrations.fastapi import FastapiProvider
 
 from main.config import Config
 from main.ioc.providers.database import DatabaseProvider
@@ -11,6 +12,7 @@ def create_container(config: Config) -> AsyncContainer:
     from main.ioc.providers.adapter import AdapterProvider
 
     return make_async_container(
+        FastapiProvider(),
         ServiceProvider(),
         DatabaseProvider(),
         RepositoryProvider(),
