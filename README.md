@@ -114,6 +114,7 @@ Configuration is managed through environment variables and pydantic settings. Ke
 
 - `APPLICATION_TITLE`: Application name
 - `APPLICATION_DEBUG`: Debug mode flag
+- `SESSION_*`: Session settings
 - `POSTGRES_*`: Database connection settings
 - `REDIS_*`: Redis connection settings
 
