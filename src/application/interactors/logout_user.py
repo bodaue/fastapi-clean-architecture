@@ -26,3 +26,5 @@ class LogoutUserInteractor:
         session_id = self._request_manager.get_session_id_from_request()
         await self._session_repository.delete(session_id)
         await self._transaction_manager.commit()
+
+        self._request_manager.delete_session_id_from_request()

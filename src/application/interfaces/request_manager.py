@@ -12,3 +12,7 @@ class RequestManager(Protocol):
     @abstractmethod
     def add_session_id_to_request(self, session_id: SessionId) -> None:
         pass
+
+    @abstractmethod
+    def delete_session_id_from_request(self) -> None:
+        pass

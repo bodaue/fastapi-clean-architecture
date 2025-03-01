@@ -7,6 +7,7 @@ from application.interactors.login_user import (
     LoginUserInteractor,
     LoginUserRequest,
 )
+from application.interactors.logout_user import LogoutUserInteractor
 from application.interactors.register_user import (
     RegisterUserInteractor,
     RegisterUserRequest,
@@ -44,3 +45,15 @@ async def login(
     data: LoginUserRequest, login_user: FromDishka[LoginUserInteractor]
 ) -> None:
     return await login_user(data)
+
+
+@router.post(
+    "/logout",
+    status_code=status.HTTP_204_NO_CONTENT,
+    responses={
+        401: {"description": "Authentication required"},
+    },
+)
+@inject
+async def logout(logout_user: FromDishka[LogoutUserInteractor]) -> None:
+    return await logout_user()

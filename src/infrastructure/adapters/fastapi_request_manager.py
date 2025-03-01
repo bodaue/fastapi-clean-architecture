@@ -19,3 +19,6 @@ class FastAPIRequestManager(RequestManager):
 
     def add_session_id_to_request(self, session_id: SessionId) -> None:
         self.request.state.session_id = session_id
+
+    def delete_session_id_from_request(self) -> None:
+        self.request.state.delete_session_id = True
