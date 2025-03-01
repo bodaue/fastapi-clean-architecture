@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic import SecretStr, BaseModel
 from pydantic_settings import BaseSettings as _BaseSettings
 from pydantic_settings import SettingsConfigDict
@@ -15,6 +17,16 @@ class BaseSettings(_BaseSettings):
 class ApplicationConfig(BaseSettings, env_prefix="APPLICATION_"):
     title: str
     debug: bool = False
+
+
+class SessionConfig(BaseSettings, env_prefix="SESSION_"):
+    lifetime_minutes: int
+
+    cookie_name: str = "session_id"
+    samesite: Literal["lax", "strict", "none"] = "lax"
+    path: str = "/"
+    secure: bool = True
+    domain: str | None = None
 
 
 class PostgresConfig(BaseSettings, env_prefix="POSTGRES_"):
@@ -45,6 +57,7 @@ class RedisConfig(BaseSettings, env_prefix="REDIS_"):
 
 class Config(BaseModel):
     app: ApplicationConfig
+    session: SessionConfig
     postgres: PostgresConfig
     redis: RedisConfig
 
@@ -52,6 +65,7 @@ class Config(BaseModel):
 def create_config() -> Config:
     return Config(
         app=ApplicationConfig(),
+        session=SessionConfig(),
         postgres=PostgresConfig(),
         redis=RedisConfig(),
     )

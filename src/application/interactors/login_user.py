@@ -12,6 +12,7 @@ from application.interfaces.request_manager import RequestManager
 from application.interfaces.session_repository import SessionRepository
 from application.interfaces.user_repository import UserRepository
 from domain.entities.session import SessionId, Session
+from main.config import SessionConfig
 
 
 @dataclass
@@ -30,6 +31,7 @@ class LoginUserInteractor:
         session_id_generator: SessionIdGenerator,
         request_manager: RequestManager,
         identity_provider: IdentityProvider,
+        session_config: SessionConfig,
     ) -> None:
         self._user_repository = user_repository
         self._session_repository = session_repository
@@ -38,6 +40,7 @@ class LoginUserInteractor:
         self._session_id_generator = session_id_generator
         self._request_manager = request_manager
         self._identity_provider = identity_provider
+        self._session_config = session_config
 
     async def __call__(self, data: LoginUserRequest) -> None:
         is_authenticated: bool = await self._identity_provider.is_authenticated()
@@ -53,7 +56,9 @@ class LoginUserInteractor:
             raise InvalidCredentialsError
 
         session_id: SessionId = self._session_id_generator()
-        expires_at = datetime.now(UTC) + timedelta(minutes=60)
+        expires_at = datetime.now(UTC) + timedelta(
+            minutes=self._session_config.lifetime_minutes
+        )
         session: Session = Session(
             id=session_id, user_id=user.id, expires_at=expires_at
         )

@@ -1,20 +1,20 @@
 from collections.abc import AsyncIterable
 
-from dishka import Provider, provide, Scope, from_context
+from dishka import Provider, provide, Scope
 from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
 
 from application.interfaces.transaction_manager import TransactionManager
 from infrastructure.database.database import get_new_session_maker
 from infrastructure.database.transaction_manager import TransactionManagerImpl
-from main.config import Config
+from main.config import PostgresConfig
 
 
 class DatabaseProvider(Provider):
-    config = from_context(provides=Config, scope=Scope.APP)
-
     @provide(scope=Scope.APP)
-    def get_session_maker(self, config: Config) -> async_sessionmaker[AsyncSession]:
-        return get_new_session_maker(config.postgres)
+    def get_session_maker(
+        self, config: PostgresConfig
+    ) -> async_sessionmaker[AsyncSession]:
+        return get_new_session_maker(config)
 
     @provide(scope=Scope.REQUEST)
     async def get_session(

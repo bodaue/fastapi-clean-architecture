@@ -11,15 +11,15 @@ from domain.entities.user import UserId
 
 class SQLSessionRepository(SessionRepository):
     def __init__(self, session: AsyncSession) -> None:
-        self.session = session
+        self._session = session
 
     async def create(self, session: Session) -> Session:
-        self.session.add(session)
-        await self.session.flush()
+        self._session.add(session)
+        await self._session.flush()
         return session
 
     async def get_by_id(self, session_id: SessionId) -> Session | None:
-        return await self.session.get(Session, session_id)
+        return await self._session.get(Session, session_id)
 
     async def get_active_by_user_id(self, user_id: UserId) -> list[Session]:
         stmt = select(Session).where(
@@ -27,9 +27,9 @@ class SQLSessionRepository(SessionRepository):
             is_(Session.is_active, True),
             (Session.expires_at > datetime.now(UTC)),
         )
-        result = await self.session.execute(stmt)
+        result = await self._session.execute(stmt)
         return list(result.scalars())
 
     async def delete(self, session_id: SessionId) -> None:
         stmt = delete(Session).where(Session.id == session_id)
-        await self.session.execute(stmt)
+        await self._session.execute(stmt)
