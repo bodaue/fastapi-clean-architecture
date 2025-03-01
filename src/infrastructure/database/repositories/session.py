@@ -1,4 +1,4 @@
-from sqlalchemy import select, update
+from sqlalchemy import select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import datetime, UTC
 
@@ -30,14 +30,6 @@ class SQLSessionRepository(SessionRepository):
         result = await self.session.execute(stmt)
         return list(result.scalars())
 
-    async def deactivate(self, session_id: SessionId) -> None:
-        stmt = update(Session).where(Session.id == session_id).values(is_active=False)
-        await self.session.execute(stmt)
-
-    async def deactivate_all_for_user(self, user_id: UserId) -> None:
-        stmt = (
-            update(Session)
-            .where((Session.user_id == user_id), is_(Session.is_active, True))
-            .values(is_active=False)
-        )
+    async def delete(self, session_id: SessionId) -> None:
+        stmt = delete(Session).where(Session.id == session_id)
         await self.session.execute(stmt)

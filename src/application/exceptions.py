@@ -17,3 +17,7 @@ class InvalidPasswordError(ApplicationError):
 
 class LogInError(ApplicationError):
     pass
+
+
+class AuthenticationRequiredError(ApplicationError):
+    pass

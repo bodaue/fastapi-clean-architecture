@@ -19,9 +19,5 @@ class SessionRepository(Protocol):
         raise NotImplementedError
 
     @abstractmethod
-    async def deactivate(self, session_id: SessionId) -> None:
-        raise NotImplementedError
-
-    @abstractmethod
-    async def deactivate_all_for_user(self, user_id: UserId) -> None:
+    async def delete(self, session_id: SessionId) -> None:
         raise NotImplementedError

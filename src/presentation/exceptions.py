@@ -54,3 +54,12 @@ def register_exception_handlers(app: FastAPI) -> None:
             status_code=status.HTTP_409_CONFLICT,
             content={"detail": "You are already authenticated"},
         )
+
+    @app.exception_handler(app_exc.AuthenticationRequiredError)
+    async def authentication_required_handler(
+        _: Request, __: Exception
+    ) -> JSONResponse:
+        return JSONResponse(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            content={"detail": "Authentication required to perform this action"},
+        )
