@@ -11,6 +11,6 @@ SessionId = NewType("SessionId", str)
 class Session:
     id: SessionId
     user_id: UserId
+    expires_at: datetime
     created_at: datetime = None
-    expires_at: datetime = None
     is_active: bool = True

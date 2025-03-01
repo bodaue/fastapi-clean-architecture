@@ -7,8 +7,8 @@ from infrastructure.database.tables.base import metadata, mapper_registry
 sessions_table = Table(
     "sessions",
     metadata,
-    Column("id", String(256), primary_key=True),
-    Column("user_id", UUID, ForeignKey("users.id"), nullable=False),
+    Column("id", String, primary_key=True),
+    Column("user_id", UUID, ForeignKey("users.id"), nullable=False, unique=True),
     Column(
         "created_at",
         DateTime(timezone=True),

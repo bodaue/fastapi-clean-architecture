@@ -1,4 +1,7 @@
 from dataclasses import dataclass
+from datetime import datetime, UTC
+
+from asyncpg.pgproto.pgproto import timedelta
 
 from application.exceptions import InvalidCredentialsError, LogInError
 from application.interfaces.session_generator import SessionIdGenerator
@@ -50,7 +53,10 @@ class LoginUserInteractor:
             raise InvalidCredentialsError
 
         session_id: SessionId = self._session_id_generator()
-        session: Session = Session(id=session_id, user_id=user.id)
+        expires_at = datetime.now(UTC) + timedelta(minutes=60)
+        session: Session = Session(
+            id=session_id, user_id=user.id, expires_at=expires_at
+        )
         await self._session_repository.create(session)
         await self._transaction_manager.commit()
 
