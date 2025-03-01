@@ -10,9 +10,10 @@ from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
+
+
 src_path = str(Path(__file__).parent.parent.parent.parent)
 sys.path.insert(0, src_path)
-
 from infrastructure.database.tables.base import mapper_registry
 from main.config import create_config
 
