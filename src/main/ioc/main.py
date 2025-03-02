@@ -7,11 +7,10 @@ from main.ioc.providers.database import DatabaseProvider
 from main.ioc.providers.interactor import InteractorProvider
 from main.ioc.providers.repository import RepositoryProvider
 from main.ioc.providers.service import ServiceProvider
+from main.ioc.providers.adapter import AdapterProvider
 
 
 def create_container(config: Config) -> AsyncContainer:
-    from main.ioc.providers.adapter import AdapterProvider
-
     return make_async_container(
         FastapiProvider(),
         ConfigProvider(),
