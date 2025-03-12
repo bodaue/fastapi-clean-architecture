@@ -6,10 +6,8 @@ from application.interfaces.session_repository import SessionRepository
 from application.interfaces.user_repository import UserRepository
 from domain.entities.user import UserId
 from infrastructure.exceptions import AuthenticationError
-from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from domain.entities.session import SessionId, Session
+from domain.entities.session import SessionId, Session
 
 
 class SessionIdentityProvider(IdentityProvider):
